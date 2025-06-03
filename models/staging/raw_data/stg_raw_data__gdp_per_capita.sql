@@ -168,6 +168,7 @@ FROM supp
 )
 
 --Step3: passage des colonnes en lignes--
+, pivot AS (
 SELECT 
   country,
   code_wb as code,
@@ -212,4 +213,237 @@ UNPIVOT (
 `2023`
   )
 )
+)
+--Step4: rajout d'une colonne d'income category--
+, category AS (
+SELECT *,
+  CASE 
+    -- 1990
+    WHEN year = 1990 AND gdp_per_capita <= 610 THEN 'Low income'
+    WHEN year = 1990 AND gdp_per_capita <= 2465 THEN 'Lower-middle income'
+    WHEN year = 1990 AND gdp_per_capita <= 7620 THEN 'Upper-middle income'
+    WHEN year = 1990 THEN 'High income'
+
+    -- 1991
+    WHEN year = 1991 AND gdp_per_capita <= 675 THEN 'Low income'
+    WHEN year = 1991 AND gdp_per_capita <= 2695 THEN 'Lower-middle income'
+    WHEN year = 1991 AND gdp_per_capita <= 7910 THEN 'Upper-middle income'
+    WHEN year = 1991 THEN 'High income'
+
+    -- 1992
+    WHEN year = 1992 AND gdp_per_capita <= 755 THEN 'Low income'
+    WHEN year = 1992 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1992 AND gdp_per_capita <= 8355 THEN 'Upper-middle income'
+    WHEN year = 1992 THEN 'High income'
+
+    -- 1993
+    WHEN year = 1993 AND gdp_per_capita <= 765 THEN 'Low income'
+    WHEN year = 1993 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1993 AND gdp_per_capita <= 8625 THEN 'Upper-middle income'
+    WHEN year = 1993 THEN 'High income'
+
+    -- 1994
+    WHEN year = 1994 AND gdp_per_capita <= 765 THEN 'Low income'
+    WHEN year = 1994 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1994 AND gdp_per_capita <= 8955 THEN 'Upper-middle income'
+    WHEN year = 1994 THEN 'High income'
+
+    -- 1995
+    WHEN year = 1995 AND gdp_per_capita <= 765 THEN 'Low income'
+    WHEN year = 1995 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1995 AND gdp_per_capita <= 9385 THEN 'Upper-middle income'
+    WHEN year = 1995 THEN 'High income'
+
+    -- 1996
+    WHEN year = 1996 AND gdp_per_capita <= 765 THEN 'Low Income'
+    WHEN year = 1996 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1996 AND gdp_per_capita <= 9645 THEN 'Upper-middle income'
+    WHEN year = 1996 THEN 'High income'
+
+    -- 1997
+    WHEN year = 1997 AND gdp_per_capita <= 765 THEN 'Low Income'
+    WHEN year = 1997 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1997 AND gdp_per_capita <= 9655 THEN 'Upper-middle income'
+    WHEN year = 1998 THEN 'High income'
+
+     -- 1998
+    WHEN year = 1998 AND gdp_per_capita <= 765 THEN 'Low income'
+    WHEN year = 1998 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 1998 AND gdp_per_capita <= 9360 THEN 'Upper-middle income'
+    WHEN year = 1998 THEN 'High income'
+
+    -- 1999
+    WHEN year = 1999 AND gdp_per_capita <= 755 THEN 'Low income'
+    WHEN year = 1999 AND gdp_per_capita <= 2995 THEN 'Lower-middle income'
+    WHEN year = 1999 AND gdp_per_capita <= 9265 THEN 'Upper-middle income'
+    WHEN year = 1999 THEN 'High income'
+
+    -- 2000
+    WHEN year = 2000 AND gdp_per_capita <= 755 THEN 'Low income'
+    WHEN year = 2000 AND gdp_per_capita <= 2995 THEN 'Lower-middle income'
+    WHEN year = 2000 AND gdp_per_capita <= 9265 THEN 'Upper-middle income'
+    WHEN year = 2000 THEN 'High income'
+
+    -- 2001
+    WHEN year = 2001 AND gdp_per_capita <= 745 THEN 'Low income'
+    WHEN year = 2001 AND gdp_per_capita <= 2975 THEN 'Lower-middle income'
+    WHEN year = 2001 AND gdp_per_capita <= 9205 THEN 'Upper-middle income'
+    WHEN year = 2001 THEN 'High income'
+
+    -- 2002
+    WHEN year = 2002 AND gdp_per_capita <= 735 THEN 'Low income'
+    WHEN year = 2002 AND gdp_per_capita <= 2935 THEN 'Lower-middle income'
+    WHEN year = 2002 AND gdp_per_capita <= 9075 THEN 'Upper-middle income'
+    WHEN year = 2002 THEN 'High income'
+
+    -- 2003
+    WHEN year = 2003 AND gdp_per_capita <= 735 THEN 'Low income'
+    WHEN year = 2003 AND gdp_per_capita <= 2935 THEN 'Lower-middle income'
+    WHEN year = 2003 AND gdp_per_capita <= 9385 THEN 'Upper-middle income'
+    WHEN year = 2003 THEN 'High income'
+
+    -- 2004
+    WHEN year = 2004 AND gdp_per_capita <= 765 THEN 'Low income'
+    WHEN year = 2004 AND gdp_per_capita <= 3035 THEN 'Lower-middle income'
+    WHEN year = 2004 AND gdp_per_capita <= 10065 THEN 'Upper-middle income'
+    WHEN year = 2004 THEN 'High income'
+
+    -- 2005
+    WHEN year = 2005 AND gdp_per_capita <= 875 THEN 'Low income'
+    WHEN year = 2005 AND gdp_per_capita <= 3465 THEN 'Lower-middle income'
+    WHEN year = 2005 AND gdp_per_capita <= 10725 THEN 'Upper-middle income'
+    WHEN year = 2005 THEN 'High income'
+
+    -- 2006
+    WHEN year = 2006 AND gdp_per_capita <= 905 THEN 'Low income'
+    WHEN year = 2006 AND gdp_per_capita <= 3595 THEN 'Lower-middle income'
+    WHEN year = 2006 AND gdp_per_capita <= 11115 THEN 'Upper-middle income'
+    WHEN year = 2006 THEN 'High income'
+
+    -- 2007
+    WHEN year = 2007 AND gdp_per_capita <= 935 THEN 'Low income'
+    WHEN year = 2007 AND gdp_per_capita <= 3705 THEN 'Lower-middle income'
+    WHEN year = 2007 AND gdp_per_capita <= 11455 THEN 'Upper-middle income'
+    WHEN year = 2007 THEN 'High income'
+
+    -- 2008
+    WHEN year = 2008 AND gdp_per_capita <= 975 THEN 'Low income'
+    WHEN year = 2008 AND gdp_per_capita <= 3855 THEN 'Lower-middle income'
+    WHEN year = 2008 AND gdp_per_capita <= 11905 THEN 'Upper-middle income'
+    WHEN year = 2008 THEN 'High income'
+
+    -- 2009
+    WHEN year = 2009 AND gdp_per_capita <= 995 THEN 'Low income'
+    WHEN year = 2009 AND gdp_per_capita <= 3945 THEN 'Lower-middle income'
+    WHEN year = 2009 AND gdp_per_capita <= 12195 THEN 'Upper-middle income'
+    WHEN year = 2009 THEN 'High income'
+
+    -- 2010
+    WHEN year = 2010 AND gdp_per_capita <= 1005 THEN 'Low income'
+    WHEN year = 2010 AND gdp_per_capita <= 3975 THEN 'Lower-middle income'
+    WHEN year = 2010 AND gdp_per_capita <= 12275 THEN 'Upper-middle income'
+    WHEN year = 2010 THEN 'High income'
+
+     -- 2011
+    WHEN year = 2011 AND gdp_per_capita <= 1025 THEN 'Low income'
+    WHEN year = 2011 AND gdp_per_capita <= 4035 THEN 'Lower-middle income'
+    WHEN year = 2011 AND gdp_per_capita <= 12475 THEN 'Upper-middle income'
+    WHEN year = 2011 THEN 'High income'
+
+    -- 2012
+    WHEN year = 2012 AND gdp_per_capita <= 1025 THEN 'Low income'
+    WHEN year = 2012 AND gdp_per_capita <= 4035 THEN 'Lower-middle income'
+    WHEN year = 2012 AND gdp_per_capita <= 12615 THEN 'Upper-middle income'
+    WHEN year = 2012 THEN 'High income'
+
+    -- 2013
+    WHEN year = 2013 AND gdp_per_capita <= 1035 THEN 'Low income'
+    WHEN year = 2013 AND gdp_per_capita <= 4085 THEN 'Lower-middle income'
+    WHEN year = 2013 AND gdp_per_capita <= 12745 THEN 'Upper-middle income'
+    WHEN year = 2013 THEN 'High income'
+
+    -- 2014
+    WHEN year = 2014 AND gdp_per_capita <= 1045 THEN 'Low income'
+    WHEN year = 2014 AND gdp_per_capita <= 4125 THEN 'Lower-middle income'
+    WHEN year = 2014 AND gdp_per_capita <= 12735 THEN 'Upper-middle income'
+    WHEN year = 2014 THEN 'High income'
+
+    -- 2015
+    WHEN year = 2015 AND gdp_per_capita <= 1045 THEN 'Low income'
+    WHEN year = 2015 AND gdp_per_capita <= 4125 THEN 'Lower-middle income'
+    WHEN year = 2015 AND gdp_per_capita <= 12475 THEN 'Upper-middle income'
+    WHEN year = 2015 THEN 'High income'
+
+    -- 2016
+    WHEN year = 2016 AND gdp_per_capita <= 1025 THEN 'Low income'
+    WHEN year = 2016 AND gdp_per_capita <= 4035 THEN 'Lower-middle income'
+    WHEN year = 2016 AND gdp_per_capita <= 12235 THEN 'Upper-middle income'
+    WHEN year = 2016 THEN 'High income'
+
+    -- 2017
+    WHEN year = 2017 AND gdp_per_capita <= 1005 THEN 'Low income'
+    WHEN year = 2017 AND gdp_per_capita <= 3955 THEN 'Lower-middle income'
+    WHEN year = 2017 AND gdp_per_capita <= 12055 THEN 'Upper-middle income'
+    WHEN year = 2017 THEN 'High income'
+
+    -- 2018
+    WHEN year = 2018 AND gdp_per_capita <= 1025 THEN 'Low income'
+    WHEN year = 2018 AND gdp_per_capita <= 3995 THEN 'Lower-middle income'
+    WHEN year = 2018 AND gdp_per_capita <= 12375 THEN 'Upper-middle income'
+    WHEN year = 2018 THEN 'High income'
+
+    -- 2019
+    WHEN year = 2019 AND gdp_per_capita <= 1035 THEN 'Low income'
+    WHEN year = 2019 AND gdp_per_capita <= 4045 THEN 'Lower-middle income'
+    WHEN year = 2019 AND gdp_per_capita <= 12535 THEN 'Upper-middle income'
+    WHEN year = 2019 THEN 'High income'
+
+    -- 2020
+    WHEN year = 2020 AND gdp_per_capita <= 1045 THEN 'Low income'
+    WHEN year = 2020 AND gdp_per_capita <= 4095 THEN 'Lower-middle income'
+    WHEN year = 2020 AND gdp_per_capita <= 12695 THEN 'Upper-middle income'
+    WHEN year = 2020 THEN 'High income'
+
+    -- 2021
+    WHEN year = 2021 AND gdp_per_capita <= 1085 THEN 'Low income'
+    WHEN year = 2021 AND gdp_per_capita <= 4255 THEN 'Lower-middle income'
+    WHEN year = 2021 AND gdp_per_capita <= 13205 THEN 'Upper-middle income'
+    WHEN year = 2021 THEN 'High income'
+
+    -- 2022
+    WHEN year = 2022 AND gdp_per_capita <= 1135 THEN 'Low income'
+    WHEN year = 2022 AND gdp_per_capita <= 4465 THEN 'Lower-middle income'
+    WHEN year = 2022 AND gdp_per_capita <= 13845 THEN 'Upper-middle income'
+    WHEN year = 2022 THEN 'High income'
+
+    -- 2023
+    WHEN year = 2023 AND gdp_per_capita <= 1145 THEN 'Low income'
+    WHEN year = 2023 AND gdp_per_capita <= 4515 THEN 'Lower-middle income'
+    WHEN year = 2023 AND gdp_per_capita <= 14005 THEN 'Upper-middle income'
+    WHEN year = 2023 THEN 'High income'
+
+    -- 2024
+    WHEN year = 2024 AND gdp_per_capita <= 1145 THEN 'Low income'
+    WHEN year = 2024 AND gdp_per_capita <= 4515 THEN 'Lower-middle income'
+    WHEN year = 2024 AND gdp_per_capita <= 14005 THEN 'Upper-middle income'
+    WHEN year = 2024 THEN 'High income'
+
+    ELSE 'Unknown'
+  END AS income_category
+FROM 
+pivot 
+)
+
+-- créer les clés code-year pour le merge--
+SELECT
+CONCAT(code,"_",year) as code_year, 
+country, 
+code, 
+year,
+gdp_per_capita, 
+income_category
+FROM category
+
+
+
 
