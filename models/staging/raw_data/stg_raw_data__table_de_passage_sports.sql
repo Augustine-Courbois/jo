@@ -10,7 +10,8 @@ renamed as (
 
     select
         primary_key,
-        sport
+        sport_cleaned,
+        sport_type
 
     from source
 

@@ -1,6 +1,4 @@
-with 
-
-source as (
+with source as (
     select * from {{ source('raw_data', 'gdp') }}
 
 ),
@@ -127,7 +125,7 @@ FROM renamed
 , rename AS (
 SELECT 
 string_field_0 as country,
-string_field_1 as code_wb,
+string_field_1 as code,
 double_field_34 as `1990`,
 double_field_35 as `1991`,
 double_field_36 as `1992`,
@@ -166,9 +164,10 @@ FROM supp
 )
 
 --Step3: passage des colonnes en lignes--
+, pivot AS (
 SELECT 
   country,
-  code_wb as code,
+  code,
   CAST(annee_col AS INT64) AS year,
   gdp
 FROM rename
@@ -210,3 +209,12 @@ UNPIVOT (
 `2023`
   )
 )
+)
+-- créer les clés code-year pour le merge--
+SELECT
+CONCAT(code,"_",year) as code_year, 
+country, 
+code, 
+year,
+gdp
+FROM pivot
