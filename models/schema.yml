@@ -1,5 +1,18 @@
-
 version: 2
+
+sources:
+  - name: raw_data
+    tables:
+     - name: olympic_raw
+     - name: gdp
+     - name: gdp_per_capita
+     - name: population
+     - name: hdi
+     - name: gender_inequality_index
+     - name: democracy_index
+     - name: obesity
+     - name: regions 
+     - name: noc_codes
 
 models:
     - name: my_first_dbt_model
