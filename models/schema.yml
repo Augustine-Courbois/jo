@@ -13,6 +13,8 @@ sources:
      - name: obesity
      - name: regions 
      - name: noc_codes
+     - name: table_de_passage_sports
+     - name: table_de_passage_pays
 
 models:
     - name: my_first_dbt_model
