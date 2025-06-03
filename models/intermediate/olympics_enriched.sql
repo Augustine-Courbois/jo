@@ -1,7 +1,7 @@
 --- Rajouter le pays et la région à partir de la base passage pays
 --- Rajouter la nouvelle colonne de sports et la colonne sports Collective/Individuals/Mixte
 SELECT 
-    player_id,
+        o.player_id,
         o.name,
         o.sex,
         o.noc,
