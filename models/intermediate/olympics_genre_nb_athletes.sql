@@ -5,7 +5,7 @@ SELECT
     noc,
     region_wb as region, 
     year,
-    CONCAT(noc,"_",year)as code_year,
+    code_year,
     city,
     sport_cleaned as sport,
     COUNT(DISTINCT name) as nb_athletes,
@@ -17,6 +17,6 @@ GROUP BY
     noc,
     region_wb, 
     year,
-    CONCAT(noc,"_",year),
+    code_year,
     city,
     sport_cleaned

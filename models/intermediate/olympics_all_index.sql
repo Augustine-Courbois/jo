@@ -1,10 +1,10 @@
 SELECT
 e.*,
 g.gdp,
-c.gdp_per_capita, 
+c.gdp_per_capita,
 c.income_category,
 p.population,
-h.human_development_index, 
+h.human_development_index,
 d.electoral_democracy_index,
 i.gender_inequality_index,
 o.prevalence_obesity_adults

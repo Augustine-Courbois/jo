@@ -8,6 +8,7 @@ SELECT
         p.country,
         p.region_wb, 
         o.year,
+        CONCAT(o.noc,"_",o.year)as code_year,
         o.city,
         o.sport,
         o.event,
