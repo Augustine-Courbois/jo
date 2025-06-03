@@ -215,7 +215,7 @@ UNPIVOT (
 )
 )
 --Step4: rajout d'une colonne d'income category--
-
+, category AS (
 SELECT *,
   CASE 
     -- 1990
@@ -432,6 +432,17 @@ SELECT *,
   END AS income_category
 FROM 
 pivot 
+)
+
+-- créer les clés code-year pour le merge--
+SELECT
+CONCAT(code,"_",year) as code_year, 
+country, 
+code, 
+year,
+gdp_per_capita, 
+income_category
+FROM category
 
 
 
