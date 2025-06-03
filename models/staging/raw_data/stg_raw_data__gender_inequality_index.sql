@@ -15,4 +15,11 @@ renamed as (
 
 )
 
-select * from renamed
+-- créer les clés code-year pour le merge--
+SELECT
+CONCAT(code,"_",year) as code_year, 
+country, 
+code, 
+year,
+gender_inequality_index
+FROM renamed
