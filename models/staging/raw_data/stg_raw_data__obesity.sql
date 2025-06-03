@@ -9,7 +9,7 @@ source as (
 renamed as (
 
     select
-        entity,
+        entity as country,
         code,
         year,
         prevalence_obesity_adults
