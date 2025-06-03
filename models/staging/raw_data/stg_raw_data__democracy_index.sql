@@ -9,12 +9,15 @@ source as (
 renamed as (
 
     select
-        entity,
+        entity as country,
         year,
         `electoral democracy index` as electoral_democracy_index
 
     from source
+    WHERE year >= 1990
 
 )
 
-select * from renamed
+select 
+*
+from renamed
