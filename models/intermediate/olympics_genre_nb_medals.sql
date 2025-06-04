@@ -2,7 +2,7 @@
 WITH deduplicate AS (
     SELECT DISTINCT 
         country,
-        noc, 
+        code, -- à remplacer par code
         region_wb,
         year,
         code_year,
@@ -21,7 +21,7 @@ WITH deduplicate AS (
 , count AS (
     SELECT 
         country,
-        noc,
+        code, -- à remplacer par code
         region_wb,
         year,
         code_year,
@@ -48,14 +48,14 @@ WITH deduplicate AS (
 -- Calcul du nombre de médailles basé sur la base dédupliquée et les colonnes créées
 SELECT
     country,
-    noc,
+    code, -- à remplacer par code
     region_wb,
     year,
     code_year,
     city,
     sport_cleaned,
     sport_type,
-    SUM(man) AS medals_man,
+    SUM(man) AS medals_man, -- ici possible car lignes de no medal exclues
     SUM(gold_medal_m) AS gold_medal_m,
     SUM(silver_medal_m) AS silver_medal_m,
     SUM(bronze_medal_m) AS bronze_medal_m,
@@ -99,7 +99,7 @@ FROM count
 --WHERE year >= 1992
 GROUP BY 
     country,
-    noc,
+    code, -- à remplacer par code
     region_wb,
     year,
     code_year,
