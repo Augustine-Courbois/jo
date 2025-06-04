@@ -1,3 +1,4 @@
+-- Aggrégation au niveau du pays
 WITH time_medals AS (SELECT
     country
     , region_wb

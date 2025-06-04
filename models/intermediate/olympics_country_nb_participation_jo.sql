@@ -1,3 +1,4 @@
+-- Compter le nb de participations d'un pays aux JO
 SELECT
   code AS country_code,
   COUNT(DISTINCT year) AS nb_participations
