@@ -31,6 +31,9 @@ SELECT
 CONCAT(code,"_",year) as code_year, 
 country, 
 code, 
-year,
+CASE 
+      WHEN year = 2023 THEN 2024 --on remplace les index 2023 en 2024 car nous n'avons pas encore accès aux données 2024
+      ELSE year
+    END AS year,
 human_development_index
 FROM convert
