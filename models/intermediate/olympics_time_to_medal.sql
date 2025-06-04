@@ -1,6 +1,5 @@
 WITH time_medals AS (SELECT
-    noc
-    , country
+    country
     , region_wb
     , sport_cleaned
     , count(distinct year) as nb_events
@@ -34,7 +33,7 @@ WITH time_medals AS (SELECT
             END
     ) - MIN(year) as time_to_gold
 FROM {{ ref('olympics_enriched') }}
-GROUP BY noc, country, region_wb, sport_cleaned), 
+GROUP BY country, region_wb, sport_cleaned), 
 
 avg_time AS(
     SELECT 
