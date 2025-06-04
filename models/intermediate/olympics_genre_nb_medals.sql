@@ -51,6 +51,7 @@ SELECT
     noc,
     region_wb,
     year,
+    code_year,
     city,
     sport_cleaned,
     sport_type,
@@ -95,12 +96,13 @@ SELECT
     END AS medals
 
 FROM count
-WHERE year >= 1992
+--WHERE year >= 1992
 GROUP BY 
     country,
     noc,
     region_wb,
     year,
+    code_year,
     city,
     sport_cleaned,
     sport_type
