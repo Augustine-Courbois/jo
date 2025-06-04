@@ -10,6 +10,7 @@ USING (country)
 )
 
 -- créer les clés code-year pour le merge--
+
 SELECT
 CONCAT(code,"_",year) as code_year, 
 country, 
@@ -17,4 +18,6 @@ code,
 year,
 electoral_democracy_index
 FROM tab
+
+
 

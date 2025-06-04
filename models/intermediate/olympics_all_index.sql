@@ -1,3 +1,4 @@
+WITH index AS(
 SELECT
 e.*,
 g.gdp,
@@ -9,17 +10,35 @@ d.electoral_democracy_index,
 i.gender_inequality_index,
 o.prevalence_obesity_adults
 FROM {{ ref('olympics_enriched') }} as e
-JOIN {{ ref('stg_raw_data__gdp') }} as g
+LEFT JOIN {{ ref('stg_raw_data__gdp') }} as g
 USING (code_year)
-JOIN {{ ref('stg_raw_data__gdp_per_capita') }} as c
+LEFT JOIN {{ ref('stg_raw_data__gdp_per_capita') }} as c
 USING (code_year)
-JOIN {{ ref('stg_raw_data__population') }} as p
+LEFT JOIN {{ ref('stg_raw_data__population') }} as p
 USING (code_year)
-JOIN {{ ref('stg_raw_data__hdi') }} as h
+LEFT JOIN {{ ref('stg_raw_data__hdi') }} as h
 USING (code_year)
-JOIN {{ ref('democracy_index') }} as d
+LEFT JOIN {{ ref('democracy_index') }} as d
 USING (code_year)
-JOIN {{ ref('stg_raw_data__gender_inequality_index') }} as i
+LEFT JOIN {{ ref('stg_raw_data__gender_inequality_index') }} as i
 USING (code_year)
-JOIN {{ ref('stg_raw_data__obesity') }} as o
+LEFT JOIN {{ ref('stg_raw_data__obesity') }} as o
 USING (code_year)
+)
+
+SELECT *
+FROM index
+ORDER BY year DESC
+
+--Création des ratios par index--
+
+--SELECT
+--*
+--medals--,
+--SUM(medals) / gdp over(partition by code_year) as ratio_medals_gdp,
+--SUM(medals) / gdp_per_capita over(partition by code_year) as ratio_medals_gdp_per_capita,
+--SUM(medals) / population over(partition by code_year) as ratio_medals_gdp,
+--SUM(medals) / human_development_index over(partition by code_year) as ratio_medals_human_development_index,
+--SUM(medals) / electoral_democracy_index over(partition by code_year) as ratio_medals_electoral_democracy_index,
+--SUM(medals) / gender_inequality_index over(partition by code_year) as ratio_medals_gender_inequality_index,
+--SUM(medals) / prevalence_obesity_adults over(partition by code_year) as ratio_medals_prevalence_obesity_adults,
