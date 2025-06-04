@@ -9,11 +9,9 @@ source as (
 renamed as (
 
     select
-        noc,
-        country,
-        code_wb,
-        code_wd,
-        region_wb
+        string_field_0 as noc,
+        string_field_1 as country,
+        string_field_2 as code
 
     from source
 
