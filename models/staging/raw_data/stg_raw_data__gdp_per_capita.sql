@@ -1,14 +1,9 @@
-with 
-
-source as (
-
+with source as (
     select * from {{ source('raw_data', 'gdp_per_capita') }}
-
 ),
 
 renamed as (
-
-    select
+ select
         string_field_0,
         string_field_1,
         string_field_2,
@@ -434,19 +429,26 @@ FROM
 pivot 
 )
 
--- créer les clés code-year pour le merge--
+--remplacer les index 2023 en 2024 car nous n'avons pas encore accès aux données 2024--
+, date_change AS (
 SELECT
-CONCAT(code,"_",year) as code_year, 
 country, 
 code, 
 CASE 
-        WHEN year = 2023 THEN 2024 --on remplace les index 2023 en 2024 car nous n'avons pas encore accès aux données 2024
-        ELSE year
-    END AS year,
+      WHEN year = 2023 THEN 2024
+      ELSE year
+END AS year,
 gdp_per_capita, 
 income_category
 FROM category
+)
 
-
-
-
+--créer les code_year--
+SELECT
+CONCAT(code,"_",CAST(year AS STRING)) as code_year, 
+country, 
+code, 
+year,
+gdp_per_capita, 
+income_category
+from date_change
