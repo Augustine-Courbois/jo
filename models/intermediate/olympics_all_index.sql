@@ -26,9 +26,16 @@ LEFT JOIN {{ ref('stg_raw_data__obesity') }} as o
 USING (code_year)
 )
 
-SELECT *
+SELECT
+  *,
+  CASE
+    WHEN population < 500000 THEN 'Micro state'
+    WHEN population < 5000000 THEN 'Small country'
+    WHEN population < 50000000 THEN 'Medium-sized country'
+    WHEN population < 200000000 THEN 'Large country'
+    ELSE 'Very large country'
+  END AS population_category
 FROM index
-ORDER BY year DESC
 
 --Création des ratios par index--
 
