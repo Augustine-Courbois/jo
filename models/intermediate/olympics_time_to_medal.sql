@@ -56,9 +56,9 @@ featured_sports AS(
 SELECT
     sport_cleaned
     , nb_events
-    , avg_nb_events
     , avg_year_to_medals
     , avg_year_to_gold
 FROM avg_time
 LEFT JOIN featured_sports
 USING(sport_cleaned)
+order by sport_cleaned
