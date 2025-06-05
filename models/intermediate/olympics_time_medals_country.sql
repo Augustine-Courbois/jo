@@ -1,4 +1,4 @@
-WITH time_medals AS (SELECT
+SELECT
     country
     , code
     , region_wb
@@ -34,32 +34,4 @@ WITH time_medals AS (SELECT
             END
     ) - MIN(year) as time_to_gold
 FROM {{ ref('olympics_enriched') }}
-GROUP BY country, code, region_wb, sport_cleaned), 
-
-avg_time AS(
-    SELECT 
-        sport_cleaned
-        , ROUND(AVG(time_to_medal),0) as avg_year_to_medals
-        , ROUND(AVG(time_to_gold),0) as avg_year_to_gold
-        , ROUND(AVG(nb_events),0) as avg_nb_events
-    FROM time_medals
-    GROUP BY sport_cleaned
-), 
-
-featured_sports AS(
-    SELECT 
-        sport_cleaned
-        , count(distinct year) as nb_events
-    FROM {{ ref('olympics_enriched') }}
-    GROUP BY sport_cleaned
-)
-
-SELECT
-    sport_cleaned
-    , nb_events
-    , avg_year_to_medals
-    , avg_year_to_gold
-FROM avg_time
-LEFT JOIN featured_sports
-USING(sport_cleaned)
-order by sport_cleaned
+GROUP BY country, code, region_wb, sport_cleaned
