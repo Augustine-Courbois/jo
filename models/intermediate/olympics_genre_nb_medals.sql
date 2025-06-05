@@ -54,7 +54,7 @@ SELECT
     city,
     sport_cleaned,
     sport_type,
-    CONCAT(code,"_",year,"_",sport,"_",sport_type) as code_year_sport_sport_type, -- pour les join avec base olympics_genre_nb_metals
+    CONCAT(code,"_",year,"_",sport_cleaned,"_",sport_type) as code_year_sport_cleaned_sport_type, -- pour les join avec base olympics_genre_nb_metals
     SUM(man) AS medals_man,
     SUM(gold_medal_m) AS gold_medal_m,
     SUM(silver_medal_m) AS silver_medal_m,
@@ -101,7 +101,7 @@ GROUP BY
     city,
     sport_cleaned,
     sport_type,
-    CONCAT(code,"_",year,"_",sport,"_",sport_type)
+    CONCAT(code,"_",year,"_",sport_cleaned,"_",sport_type)
 ORDER BY
     year DESC,
     country
@@ -117,7 +117,7 @@ country,
     city,
     sport_cleaned,
     sport_type,
-    code_year_sport_sport_type,  
+    code_year_sport_cleaned_sport_type,  
     medals_man, 
     gold_medal_m,
     silver_medal_m,

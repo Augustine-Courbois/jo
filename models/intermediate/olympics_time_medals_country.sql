@@ -3,7 +3,8 @@ SELECT
     , code
     , region_wb
     , sport_cleaned
-    , count(distinct year) as nb_events
+    , CONCAT(code,"_",sport_cleaned) as code_sport_cleaned
+    , count(distinct year) as nb_participation_sport_country
     , MIN(year) as first_participation
     , MIN(
         CASE 
@@ -34,4 +35,4 @@ SELECT
             END
     ) - MIN(year) as time_to_gold
 FROM {{ ref('olympics_enriched') }}
-GROUP BY country, code, region_wb, sport_cleaned
+GROUP BY country, code, region_wb, sport_cleaned, CONCAT(code,"_",sport_cleaned)

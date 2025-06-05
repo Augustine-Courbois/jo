@@ -34,15 +34,16 @@ SELECT
     code_year,
     city,
     sport_cleaned,
-    sport_type, 
-    SAFE_DIVIDE(gdp,1000000000) as gdp, --conversion du PIB en milliards de $ pour plus de lisibilité
-    ROUND(gdp_per_capita,0) as gdp_per_capita, -- round à l'unité
-    income_category,
-    SAFE_DIVIDE(population,1000000) as population, -- conversion de la population en million d'habitants 
-    human_development_index,
-    electoral_democracy_index,
-    gender_inequality_index,
-    prevalence_obesity_adults,
+    sport_type,
+    CONCAT(code,"_", year, "_", sport_cleaned,"_",sport_type) as code_year_sport_cleaned_sport_type,
+    SAFE_DIVIDE(AVG(gdp),1000000000) as gdp, --conversion du PIB en milliards de $ pour plus de lisibilité
+    ROUND(AVG(gdp_per_capita),0) as gdp_per_capita, -- round à l'unité
+    income_category as income_category,
+    SAFE_DIVIDE(AVG(population),1000000) as population, -- conversion de la population en million d'habitants 
+    AVG(human_development_index) as human_development_index,
+    AVG(electoral_democracy_index) as electoral_democracy_index,
+    AVG(gender_inequality_index) as gender_inequality_index,
+    AVG(prevalence_obesity_adults) as prevalence_obesity_adults,
     CASE
       WHEN population < 500000 THEN 'Micro state'
       WHEN population < 5000000 THEN 'Small country'
@@ -51,16 +52,16 @@ SELECT
       ELSE 'Very large country'
     END AS population_category
 FROM index
-
---Création des ratios par index--
-
---SELECT
---*
---medals--,
---SUM(medals) / gdp over(partition by code_year) as ratio_medals_gdp,
---SUM(medals) / gdp_per_capita over(partition by code_year) as ratio_medals_gdp_per_capita,
---SUM(medals) / population over(partition by code_year) as ratio_medals_gdp,
---SUM(medals) / human_development_index over(partition by code_year) as ratio_medals_human_development_index,
---SUM(medals) / electoral_democracy_index over(partition by code_year) as ratio_medals_electoral_democracy_index,
---SUM(medals) / gender_inequality_index over(partition by code_year) as ratio_medals_gender_inequality_index,
---SUM(medals) / prevalence_obesity_adults over(partition by code_year) as ratio_medals_prevalence_obesity_adults,
+GROUP BY 
+   country,
+    code,
+    region_wb, 
+    year,
+    code_year,
+    city,
+    income_category,
+    population_category,
+    sport_cleaned,
+    sport_type,
+    code_year_sport_cleaned_sport_type
+    
