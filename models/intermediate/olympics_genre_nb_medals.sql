@@ -1,8 +1,9 @@
+-- Aggrégation au pays, year, sport, sport_type
 -- Subquery pour dédupliquer la base 
 WITH deduplicate AS (
     SELECT DISTINCT 
         country,
-        code, -- à remplacer par code
+        code,
         region_wb,
         year,
         code_year,
@@ -21,7 +22,7 @@ WITH deduplicate AS (
 , count AS (
     SELECT 
         country,
-        code, -- à remplacer par code
+        code,
         region_wb,
         year,
         code_year,
@@ -48,13 +49,14 @@ WITH deduplicate AS (
 -- Calcul du nombre de médailles basé sur la base dédupliquée et les colonnes créées
 SELECT
     country,
-    code, -- à remplacer par code
+    code,
     region_wb,
     year,
     code_year,
     city,
     sport_cleaned,
     sport_type,
+    CONCAT(code,"_",year,"_",sport,"_",sport_type) as code_year_sport_sport_type, -- pour les join avec base olympics_genre_nb_metals 
     SUM(man) AS medals_man, -- ici possible car lignes de no medal exclues
     SUM(gold_medal_m) AS gold_medal_m,
     SUM(silver_medal_m) AS silver_medal_m,
@@ -99,13 +101,14 @@ FROM count
 --WHERE year >= 1992
 GROUP BY 
     country,
-    code, -- à remplacer par code
+    code,
     region_wb,
     year,
     code_year,
     city,
     sport_cleaned,
-    sport_type
+    sport_type, 
+    CONCAT(code,"_",year,"_",sport,"_",sport_type)
 ORDER BY 
     year DESC, 
     country
