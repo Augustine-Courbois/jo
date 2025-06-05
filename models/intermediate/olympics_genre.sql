@@ -39,9 +39,6 @@ i.electoral_democracy_index,
 i.gender_inequality_index,
 i.prevalence_obesity_adults,
 n.nb_participations,
-t.nb_sport_olympics,
-t.avg_year_to_medals,
-t.avg_year_to_gold,
 h.is_host
 FROM {{ ref('olympics_genre_nb_participants') }} as p
 LEFT JOIN {{ ref('olympics_genre_nb_medals') }} as m
@@ -52,9 +49,6 @@ USING (code_year_sport_cleaned_sport_type)
 
 LEFT JOIN {{ ref('olympics_country_participation_jo') }} as n
 ON p.code = n.code
-
-LEFT JOIN {{ ref('olympics_time_to_medal') }} as t
-ON p.sport_cleaned = t.sport_cleaned
 
 LEFT JOIN {{ ref('olympics_is_host') }} as h
 ON p.code_year = h.code_year
