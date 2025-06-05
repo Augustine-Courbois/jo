@@ -14,6 +14,9 @@ o.city,
 SUM(o.nb_participants) as nb_participants,
 SUM(o.nb_participants_women) as nb_participants_women, 
 SUM(o.nb_participants_men) as nb_participants_men, 
+SUM(a.nb_athletes) as nb_athletes,
+SUM(a.nb_athletes_men) as nb_athletes_men,
+SUM(a.nb_athletes_women) as nb_athletes_women,
 SUM(o.gold) as gold,
 SUM(o.silver) as silver,
 SUM(o.bronze) as bronze,
@@ -38,6 +41,8 @@ AVG(o.prevalence_obesity_adults) as prevalence_obesity_adults,
 AVG(o.nb_participations) as nb_participations,
 AVG(o.is_host) as is_host
 FROM {{ ref('olympics_genre') }} as o
+LEFT JOIN {{ ref('olympics_sport_nb_athlete') }} as a
+USING (code_year_sport_cleaned)
 GROUP BY 
 o.country, 
 o.code,
@@ -62,6 +67,9 @@ city,
 nb_participants,
 nb_participants_women, 
 nb_participants_men, 
+nb_athletes
+nb_athletes_men,
+nb_athletes_women,
 gold,
 silver,
 bronze,
