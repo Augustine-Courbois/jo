@@ -1,4 +1,7 @@
---aggregation à l'echelle des pays--
+--Matérialisation en table plutôt qu'une view --
+{{ config(materialized='table') }}
+
+--Aggrégation à l'échelle des pays--
 
 WITH country_sub AS (
 SELECT

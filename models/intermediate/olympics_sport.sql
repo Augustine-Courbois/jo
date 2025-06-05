@@ -1,3 +1,7 @@
+--Matérialisation en table plutôt qu'une view --
+{{ config(materialized='table') }}
+
+--Aggrégation à l'échelle du sport--
 SELECT
 o.country, 
 o.code,
