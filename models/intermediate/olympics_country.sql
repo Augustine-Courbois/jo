@@ -39,10 +39,17 @@ AVG(o.electoral_democracy_index) as electoral_democracy_index,
 AVG(o.gender_inequality_index) as gender_inequality_index,
 AVG(o.prevalence_obesity_adults) as prevalence_obesity_adults,
 AVG(o.nb_participations) as nb_participations,
-AVG(o.is_host) as is_host
+AVG(o.is_host) as is_host,
+AVG(b.first_participation_jo) as first_participation_jo
 FROM {{ ref('olympics_genre') }} as o
+
 LEFT JOIN {{ ref('olympics_sport_nb_athlete') }} as a
 USING (code_year_sport_cleaned)
+
+-- join la première année de participation d'un pays aux JO
+LEFT JOIN {{ ref('first_participation_jo') }} as b
+ON b.code = o.code
+
 GROUP BY 
 o.country, 
 o.code,
@@ -67,7 +74,7 @@ city,
 nb_participants,
 nb_participants_women, 
 nb_participants_men, 
-nb_athletes
+nb_athletes,
 nb_athletes_men,
 nb_athletes_women,
 gold,
@@ -100,6 +107,7 @@ SAFE_DIVIDE(medals_woman, gender_inequality_index) as ratio_medals_woman_gender_
 prevalence_obesity_adults,
 SAFE_DIVIDE(medals, prevalence_obesity_adults) as ratio_medals_prevalence_obesity_adults,
 nb_participations,
-is_host
+is_host, 
+first_participation_jo
 FROM country_sub
 
