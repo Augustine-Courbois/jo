@@ -2,7 +2,8 @@
 {{ config(materialized='table') }}
 
 --Aggrégation à l'échelle du sport--
-SELECT
+WITH agg AS (
+    SELECT
 o.country, 
 o.code,
 o.region,
@@ -63,3 +64,11 @@ o.code_year_sport_cleaned,
 o.code_sport_cleaned, 
 o.income_category, 
 o.population_category
+)
+
+SELECT 
+  *,
+  ROUND(SAFE_DIVIDE(medals, SUM(medals) OVER(PARTITION BY code_year)),6) as ratio_sport_medals_over_total_medals, 
+  ROUND(SAFE_DIVIDE(COUNTIF(medals>0) OVER(PARTITION BY code_year), COUNT(DISTINCT sport_cleaned) OVER(PARTITION BY code_year)),6) as ratio_medal_winning_sport, 
+  ROUND(SAFE_DIVIDE(SUM(medals) OVER(PARTITION BY year, sport_cleaned),sum(nb_athletes) OVER(PARTITION BY year, sport_cleaned)),6) as ratio_medals_over_athletes
+FROM agg
