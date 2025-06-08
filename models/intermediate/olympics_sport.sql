@@ -70,5 +70,6 @@ SELECT
   *,
   ROUND(SAFE_DIVIDE(medals, SUM(medals) OVER(PARTITION BY code_year)),6) as ratio_sport_medals_over_total_medals, 
   ROUND(SAFE_DIVIDE(COUNTIF(medals>0) OVER(PARTITION BY code_year), COUNT(DISTINCT sport_cleaned) OVER(PARTITION BY code_year)),6) as ratio_medal_winning_sport, 
-  ROUND(SAFE_DIVIDE(SUM(medals) OVER(PARTITION BY year, sport_cleaned),sum(nb_athletes) OVER(PARTITION BY year, sport_cleaned)),6) as ratio_medals_over_athletes
+  ROUND(SAFE_DIVIDE(SUM(medals) OVER(PARTITION BY year, sport_cleaned),sum(nb_athletes) OVER(PARTITION BY year, sport_cleaned)),6) as ratio_medals_over_athletes,
+  ROUND(SAFE_DIVIDE(nb_athletes, sum(nb_athletes) over (partition by year,country)),6) as ratio_perc_athletes_per_sport
 FROM agg
