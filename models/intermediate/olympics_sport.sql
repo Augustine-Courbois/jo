@@ -39,8 +39,9 @@ AVG(m.first_participation) as first_participation,
 AVG(m.first_medal) as first_medal,
 AVG(m.time_to_medal) as time_to_medal,
 AVG(m.first_gold_medal) as first_gold_medal,
-AVG(m.time_to_gold) as time_to_gold
-
+AVG(m.time_to_gold) as time_to_gold,
+AVG(b.gold_rate) as gold_rate,
+AVG(b.medal_rate) as medal_rate
 FROM {{ ref('olympics_genre') }} as o
 
 LEFT JOIN {{ ref('olympics_sport_nb_athlete') }} as a
@@ -51,6 +52,9 @@ ON o.code_sport_cleaned = m.code_sport_cleaned
 
 LEFT JOIN {{ ref('olympics_time_to_medal') }} as t
 ON o.sport_cleaned = t.sport_cleaned
+
+LEFT JOIN {{ ref('mart_niche_sports_medals') }} as b
+ON o.sport_cleaned = b.sport_cleaned
 
 GROUP BY 
 o.country, 
