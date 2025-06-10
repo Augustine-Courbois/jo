@@ -12,6 +12,8 @@ SELECT
     RANK() OVER (PARTITION BY year ORDER BY medals DESC) AS rk_medals_2024,
     RANK() OVER (PARTITION BY year ORDER BY ratio_medals_gdp DESC) AS rk_ratio_medals_gdp_2024,
     RANK() OVER (PARTITION BY year ORDER BY ratio_medals_gdp_per_capita DESC) AS rk_ratio_medals_gdp_per_capita_2024,
-    RANK() OVER (PARTITION BY year ORDER BY ratio_medals_population DESC) AS rk_ratio_medals_population_2024
+    RANK() OVER (PARTITION BY year ORDER BY ratio_medals_population DESC) AS rk_ratio_medals_population_2024, 
+    RANK() OVER (PARTITION BY year ORDER BY gdp DESC) AS rk_gdp_2024,
+    RANK() OVER (PARTITION BY year ORDER BY population DESC) AS rk_population_2024
 FROM {{ ref('olympics_country') }}
 WHERE year = 2024
